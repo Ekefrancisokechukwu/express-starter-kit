@@ -1,25 +1,21 @@
 import cors from "cors";
 import "express-async-errors";
-import express from "express";
-
-// middleware
+import express, { Express } from "express";
 import notFoundMiddleware from "./middleware/notFoundMiddleware";
-import errorHandlerMiddleware from "./middleware/errorMiddleware";
+import { errorMiddleware } from "./middleware/errorMiddleware";
 
-// basic setup
-const app = express();
+const app: Express = express();
+
+// Express
 app.use(express.json());
 app.use(cors({ origin: "*" }));
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 app.get("/", (req, res) => {
-  res.send(`
-     <div style="width:30rem;margin:0 auto">
-     <h1>MongoDB express Typescript app</h1>
-     </div>
-    `);
+  res.json({ message: "Welcome to the node postgresql typescript API" });
 });
 
 app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
+app.use(errorMiddleware);
 
 export default app;

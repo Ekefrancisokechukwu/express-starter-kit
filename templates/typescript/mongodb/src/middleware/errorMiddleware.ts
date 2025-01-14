@@ -1,24 +1,23 @@
 import { Request, Response, NextFunction } from "express";
 
-interface CustomErrorProps {
-  message: string;
-  statusCode: number;
+export interface CustomError extends Error {
+  statusCode?: number;
 }
 
-const errorHandlerMiddleware = async (
-  err: CustomErrorProps,
+export const errorMiddleware = (
+  err: CustomError,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err);
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
 
-  const customError: CustomErrorProps = {
-    message: err.message || "Something went wrong",
-    statusCode: err.statusCode || 500,
-  };
-
-  res.status(customError.statusCode).json({ messsage: customError.message });
+  res.status(statusCode).json({
+    success: false,
+    error: {
+      message,
+      ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    },
+  });
 };
-
-export default errorHandlerMiddleware;

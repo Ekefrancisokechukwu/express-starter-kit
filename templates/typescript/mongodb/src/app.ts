@@ -1,25 +1,28 @@
+import express, { Express } from "express";
 import cors from "cors";
-import "express-async-errors";
-import express from "express";
+import helmet from "helmet";
+import { config } from "dotenv";
+import { notFoundMiddleware } from "./middleware/notFoundMiddleware";
+import { errorMiddleware } from "./middleware/errorMiddleware";
 
-// middleware
-import notFoundMiddleware from "./middleware/notFoundMiddleware";
-import errorHandlerMiddleware from "./middleware/errorMiddleware";
+// Load environment variables
+config();
 
-// basic setup
-const app = express();
-app.use(express.json());
-app.use(cors({ origin: "*" }));
+const app: Express = express();
 
+// Middleware
+app.use(helmet()); // Security headers
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Routes
 app.get("/", (req, res) => {
-  res.send(`
-     <div style="width:30rem;margin:0 auto">
-     <h1>MongoDB express Typescript app</h1>
-     </div>
-    `);
+  res.json({ message: "Welcome to the node mongoDB typescript API" });
 });
 
+// Error handling
 app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
+app.use(errorMiddleware);
 
 export default app;
