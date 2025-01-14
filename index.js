@@ -47,8 +47,6 @@ program.action(() => {
         database.toLowerCase()
       );
 
-      console.log(templatePath);
-
       const projectPath = path.resolve(process.cwd(), projectName);
 
       if (!fs.existsSync(templatePath)) {
@@ -60,14 +58,16 @@ program.action(() => {
 
       fs.copy(templatePath, projectPath)
         .then(() => {
-          console.log(`✔ Project '${projectName}' created successfully!`);
-          console.log(`➡️  Next steps:`);
+          console.log(`✅ Project '${projectName}' created successfully!`);
+          console.log(`➡️ n Next steps:`);
           console.log(`  cd ${projectName}`);
           console.log(`  npm install`);
           console.log(`  npm start`);
+          process.exit(0);
         })
         .then((error) => {
           console.error("❌ Error copying template:", error);
+          process.exit(1);
         });
     })
     .catch((error) => {

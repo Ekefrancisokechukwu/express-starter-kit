@@ -7,7 +7,7 @@
     "dev": "node index.js"
   },
   "bin": {
-    "create-express-starter": "index.js"
+    "create-express-app": "index.js"
   },
   "keywords": [],
   "author": "",
