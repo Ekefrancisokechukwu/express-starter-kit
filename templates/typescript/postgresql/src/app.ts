@@ -1,7 +1,7 @@
 import cors from "cors";
 import "express-async-errors";
 import express, { Express } from "express";
-import notFoundMiddleware from "./middleware/notFoundMiddleware";
+import { notFoundMiddleware } from "./middleware/notFoundMiddleware";
 import { errorMiddleware } from "./middleware/errorMiddleware";
 
 const app: Express = express();

@@ -1,7 +1,14 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-const notFoundMiddleware = (req: Request, res: Response) => {
-  res.status(404).send("Route does not exist");
+export const notFoundMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  res.status(404).json({
+    success: false,
+    error: {
+      message: `Not Found - ${req.originalUrl}`,
+    },
+  });
 };
-
-export default notFoundMiddleware;
