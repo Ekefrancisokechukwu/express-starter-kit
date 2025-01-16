@@ -1,4 +1,3 @@
-![workspace - backend - Visual Studio Code 1_16_2025 6_06_45 PM](https://github.com/user-attachments/assets/5206d5ef-bbfe-44ff-8c94-df47879ecfac)
 # My personal Express Starter Kit CLI
 
 The Express Starter Kit CLI is a simple and efficient command-line tool to instantciate an Express.js application with predefined templates for different languages and databases. This tool helps me quickly set up a project, saving time on boilerplate configuration.
